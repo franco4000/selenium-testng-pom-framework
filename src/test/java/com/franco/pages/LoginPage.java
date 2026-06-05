@@ -2,6 +2,7 @@ package com.franco.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /*
  * Esta clase representa la página de Login de la aplicación.
@@ -38,8 +39,12 @@ public class LoginPage extends BasePage {
         return new LoggedInPage(driver);
     }
 
-    // Obtiene el mensaje de error mostrado cuando el login falla
     public String obtenerMensajeError() {
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(errorMessage)
+        );
+
         return driver.findElement(errorMessage).getText();
     }
 }
