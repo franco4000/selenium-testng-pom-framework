@@ -3,6 +3,7 @@ package com.franco.utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 /*
  * DriverFactory
@@ -23,8 +24,15 @@ public class DriverFactory {
         // Configura automáticamente la versión correcta del ChromeDriver
         WebDriverManager.chromedriver().setup();
 
+        // Configuración de Chrome para ejecución local y CI/CD
+        ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
         // Crea una nueva instancia del navegador Chrome
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver(options);
 
         // Maximiza la ventana para ejecutar las pruebas en pantalla completa
         driver.manage().window().maximize();
@@ -33,4 +41,3 @@ public class DriverFactory {
         return driver;
     }
 }
-
